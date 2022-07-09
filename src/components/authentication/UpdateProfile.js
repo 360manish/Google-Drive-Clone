@@ -1,7 +1,8 @@
 import React,{useRef,useState} from 'react'
 import {Form,Button,Card,Alert} from 'react-bootstrap'
-import {useAuth} from '../context/AuthContex'
+import {useAuth} from '../../context/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
+import CenteredContainer from './CenteredContainer'
 export default function Signup() {
     const emailRef=useRef()
     const passwordRef=useRef() 
@@ -28,7 +29,7 @@ export default function Signup() {
             promises.push(updatePassword(passwordRef.current.value))
         }
         Promise.all(promises).then(()=>{
-            navigate('/')
+            navigate('/user')
         }).catch((error)=>{
             console.log(error)
             setError('Failed to update acccount')
@@ -39,7 +40,7 @@ export default function Signup() {
     }
 
   return (
-    <>
+    <CenteredContainer>
     <Card>
         <Card.Body>
             <h2 className='w-100 text-center mt-2'>Update Profile</h2>
@@ -63,8 +64,8 @@ export default function Signup() {
         </Card.Body>
     </Card>
     <div className='w-100 text-center mt-2'>
-        Already have an account? <Link to="/">Cancel</Link>
+        Don't want to update? <Link to="/user">Cancel</Link>
     </div>
-    </>
+    </CenteredContainer>
   )
 }
